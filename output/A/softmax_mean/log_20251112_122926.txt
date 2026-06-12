@@ -1,0 +1,62 @@
+📄 Logging to: output/softmax_mean/log_20251112_122926.txt
+Use GPU: 7 for training
+Random initialization: initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+Use pre-trained soft prompt (CoOp) as initialization
+=> Model created: visual backbone ViT-B/16
+=> Using native Torch AMP. Training in mixed precision.
+evaluating: A
+number of test samples: 7500
+Test: [ 199/7500]	Time  0.421 ( 0.372)	Acc@1   0.00 ( 61.00)	Acc@5 100.00 ( 82.00)
+Test: [ 399/7500]	Time  0.405 ( 0.389)	Acc@1 100.00 ( 61.25)	Acc@5 100.00 ( 82.00)
+Test: [ 599/7500]	Time  0.381 ( 0.392)	Acc@1   0.00 ( 62.50)	Acc@5   0.00 ( 83.33)
+Test: [ 799/7500]	Time  0.411 ( 0.391)	Acc@1 100.00 ( 63.12)	Acc@5 100.00 ( 83.88)
+Test: [ 999/7500]	Time  0.396 ( 0.396)	Acc@1 100.00 ( 61.00)	Acc@5 100.00 ( 82.80)
+Test: [1199/7500]	Time  0.419 ( 0.397)	Acc@1 100.00 ( 61.25)	Acc@5 100.00 ( 83.50)
+Test: [1399/7500]	Time  0.371 ( 0.397)	Acc@1   0.00 ( 61.29)	Acc@5   0.00 ( 83.43)
+Test: [1599/7500]	Time  0.415 ( 0.398)	Acc@1 100.00 ( 61.44)	Acc@5 100.00 ( 83.38)
+Test: [1799/7500]	Time  0.359 ( 0.398)	Acc@1 100.00 ( 61.72)	Acc@5 100.00 ( 83.83)
+Test: [1999/7500]	Time  0.491 ( 0.398)	Acc@1   0.00 ( 61.30)	Acc@5   0.00 ( 83.85)
+Traceback (most recent call last):
+  File "./tpt_classification.py", line 912, in <module>
+    main()
+  File "./tpt_classification.py", line 651, in main
+    main_worker(args.gpu, args)
+  File "./tpt_classification.py", line 782, in main_worker
+    results[set_id] = test_time_adapt_eval(val_loader, model, model_state, optimizer, optim_state, scaler, args, classnames)
+  File "./tpt_classification.py", line 843, in test_time_adapt_eval
+    test_time_tuning(model, images, optimizer, scaler, args, target, classnames)
+  File "./tpt_classification.py", line 431, in test_time_tuning
+    output, proto_output, image_embedding, text_embedding, prototype_bank, custom_indices, logit_scale, all_des, all_mask = model(inputs) 
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/jeongwon/SGF_TPT/clip/custom_clip.py", line 784, in forward
+    return self.inference(input)
+  File "/home/jeongwon/SGF_TPT/clip/custom_clip.py", line 758, in inference
+    image_features = self.image_encoder(image.type(self.dtype))
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/jeongwon/SGF_TPT/clip/model.py", line 232, in forward
+    x = self.transformer(x)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/jeongwon/SGF_TPT/clip/model.py", line 203, in forward
+    return self.resblocks(x)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/container.py", line 117, in forward
+    input = module(input)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/jeongwon/SGF_TPT/clip/model.py", line 190, in forward
+    x = x + self.attention(self.ln_1(x))
+  File "/home/jeongwon/SGF_TPT/clip/model.py", line 187, in attention
+    return self.attn(x, x, x, need_weights=False, attn_mask=self.attn_mask)[0]
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/module.py", line 727, in _call_impl
+    result = self.forward(*input, **kwargs)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/modules/activation.py", line 985, in forward
+    attn_mask=attn_mask)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/nn/functional.py", line 4144, in multi_head_attention_forward
+    if torch.equal(query, key) and torch.equal(key, value):
+KeyboardInterrupt

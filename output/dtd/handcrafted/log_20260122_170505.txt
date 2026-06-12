@@ -1,0 +1,10 @@
+📄 Logging to: output/dtd/handcrafted/log_20260122_170505.txt
+Use GPU: 7 for training
+Traceback (most recent call last):
+  File "./tpt_classification.py", line 927, in <module>
+    main()
+  File "./tpt_classification.py", line 654, in main
+    main_worker(args.gpu, args)
+  File "./tpt_classification.py", line 666, in main_worker
+    assert args.test_sets in ['A', 'R', 'K', 'V', 'I']
+AssertionError

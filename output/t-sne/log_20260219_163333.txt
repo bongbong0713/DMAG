@@ -1,0 +1,69 @@
+📄 Logging to: output/t-sne/log_20260219_163333.txt
+Use GPU: 4 for training
+Initializing the contect with given words: [a_photo_of_a]
+Initial context: "a photo of a"
+Number of context words (tokens): 4
+=> Model created: visual backbone ViT-B/16
+=> Using native Torch AMP. Training in mixed precision.
+evaluating: Pets
+number of test samples: 3669
+Test: [  99/3669]	Time  0.183 ( 0.224)	Acc@1 100.00 ( 89.00)	Acc@5 100.00 ( 98.00)
+Test: [ 199/3669]	Time  0.192 ( 0.217)	Acc@1 100.00 ( 87.50)	Acc@5 100.00 ( 96.50)
+Test: [ 299/3669]	Time  0.192 ( 0.213)	Acc@1 100.00 ( 87.33)	Acc@5 100.00 ( 97.00)
+Test: [ 399/3669]	Time  0.196 ( 0.212)	Acc@1 100.00 ( 88.25)	Acc@5 100.00 ( 97.50)
+Test: [ 499/3669]	Time  0.195 ( 0.211)	Acc@1 100.00 ( 88.80)	Acc@5 100.00 ( 97.60)
+Test: [ 599/3669]	Time  0.204 ( 0.212)	Acc@1 100.00 ( 88.17)	Acc@5 100.00 ( 97.17)
+Test: [ 699/3669]	Time  0.191 ( 0.212)	Acc@1 100.00 ( 88.00)	Acc@5 100.00 ( 97.43)
+Test: [ 799/3669]	Time  0.192 ( 0.213)	Acc@1 100.00 ( 88.12)	Acc@5 100.00 ( 97.50)
+Test: [ 899/3669]	Time  0.203 ( 0.212)	Acc@1 100.00 ( 88.44)	Acc@5 100.00 ( 97.44)
+Test: [ 999/3669]	Time  0.200 ( 0.212)	Acc@1 100.00 ( 88.50)	Acc@5 100.00 ( 97.50)
+Test: [1099/3669]	Time  0.214 ( 0.211)	Acc@1 100.00 ( 88.73)	Acc@5 100.00 ( 97.55)
+Test: [1199/3669]	Time  0.220 ( 0.210)	Acc@1 100.00 ( 88.67)	Acc@5 100.00 ( 97.50)
+Test: [1299/3669]	Time  0.207 ( 0.210)	Acc@1   0.00 ( 88.77)	Acc@5   0.00 ( 97.46)
+Test: [1399/3669]	Time  0.221 ( 0.209)	Acc@1 100.00 ( 88.29)	Acc@5 100.00 ( 97.43)
+Test: [1499/3669]	Time  0.192 ( 0.209)	Acc@1 100.00 ( 88.80)	Acc@5 100.00 ( 97.60)
+Test: [1599/3669]	Time  0.194 ( 0.209)	Acc@1 100.00 ( 88.88)	Acc@5 100.00 ( 97.56)
+Test: [1699/3669]	Time  0.200 ( 0.208)	Acc@1 100.00 ( 89.00)	Acc@5 100.00 ( 97.71)
+Test: [1799/3669]	Time  0.208 ( 0.208)	Acc@1 100.00 ( 89.11)	Acc@5 100.00 ( 97.61)
+Test: [1899/3669]	Time  0.215 ( 0.208)	Acc@1 100.00 ( 89.11)	Acc@5 100.00 ( 97.47)
+Test: [1999/3669]	Time  0.202 ( 0.208)	Acc@1 100.00 ( 88.80)	Acc@5 100.00 ( 97.30)
+Test: [2099/3669]	Time  0.181 ( 0.208)	Acc@1 100.00 ( 88.76)	Acc@5 100.00 ( 97.24)
+Test: [2199/3669]	Time  0.194 ( 0.208)	Acc@1 100.00 ( 88.64)	Acc@5 100.00 ( 97.14)
+Test: [2299/3669]	Time  0.204 ( 0.208)	Acc@1 100.00 ( 88.52)	Acc@5 100.00 ( 97.13)
+Test: [2399/3669]	Time  0.207 ( 0.208)	Acc@1   0.00 ( 88.67)	Acc@5 100.00 ( 97.21)
+Test: [2499/3669]	Time  0.196 ( 0.208)	Acc@1 100.00 ( 88.60)	Acc@5 100.00 ( 97.24)
+Test: [2599/3669]	Time  0.189 ( 0.208)	Acc@1   0.00 ( 88.50)	Acc@5 100.00 ( 97.31)
+Test: [2699/3669]	Time  0.197 ( 0.208)	Acc@1 100.00 ( 88.52)	Acc@5 100.00 ( 97.30)
+Test: [2799/3669]	Time  0.188 ( 0.208)	Acc@1 100.00 ( 88.43)	Acc@5 100.00 ( 97.21)
+Test: [2899/3669]	Time  0.183 ( 0.208)	Acc@1   0.00 ( 88.38)	Acc@5 100.00 ( 97.14)
+Test: [2999/3669]	Time  0.185 ( 0.208)	Acc@1 100.00 ( 88.27)	Acc@5 100.00 ( 97.10)
+Test: [3099/3669]	Time  0.180 ( 0.208)	Acc@1 100.00 ( 88.42)	Acc@5 100.00 ( 97.19)
+Test: [3199/3669]	Time  0.181 ( 0.208)	Acc@1 100.00 ( 88.25)	Acc@5 100.00 ( 97.19)
+Test: [3299/3669]	Time  0.185 ( 0.208)	Acc@1 100.00 ( 88.30)	Acc@5 100.00 ( 97.27)
+Test: [3399/3669]	Time  0.186 ( 0.208)	Acc@1 100.00 ( 88.24)	Acc@5 100.00 ( 97.24)
+Test: [3499/3669]	Time  0.184 ( 0.208)	Acc@1 100.00 ( 88.40)	Acc@5 100.00 ( 97.29)
+Test: [3599/3669]	Time  0.197 ( 0.208)	Acc@1 100.00 ( 88.58)	Acc@5 100.00 ( 97.28)
+ *  Acc@1 88.525 Acc@5 97.302
+[t-SNE] Computing 91 nearest neighbors...
+[t-SNE] Indexed 260 samples in 0.000s...
+[t-SNE] Computed neighbors for 260 samples in 0.009s...
+[t-SNE] Computed conditional probabilities for sample 260 / 260
+[t-SNE] Mean sigma: 0.206006
+/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/sklearn/manifold/_t_sne.py:986: FutureWarning: The PCA initialization in TSNE will change to have the standard deviation of PC1 equal to 1e-4 in 1.2. This will ensure better convergence.
+  FutureWarning,
+[t-SNE] KL divergence after 250 iterations with early exaggeration: 55.363350
+[t-SNE] KL divergence after 1000 iterations: 0.360037
+[t-SNE] Saved: output/t-sne/tsne_vis/set_Pets/tsne_proto_neighbors_bold.png
+
+✅ Selected-aug accuracy (overall): 87.54%  (19272/22014)
+
+✅ Total validation time: 764.27 seconds
+=> Acc. on testset [Pets]: @1 88.52548217773438/ @5 97.30171203613281
+======== Result Summary ========
+params: nstep	lr	bs
+params: 1	0.003	64
+		 [set_id] 		 Top-1 acc. 		 Top-5 acc.
+Pets	
+
+88.53	
+

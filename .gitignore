@@ -1,0 +1,15 @@
+weights/
+*.pth
+*.pth.tar
+*.pt
+*.ckpt
+*.zip
+
+.cache/
+~/
+
+__pycache__/
+weights/
+*.pt
+*.pth
+*.zip

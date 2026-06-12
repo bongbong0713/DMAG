@@ -1,0 +1,122 @@
+{
+    "Annual Crop Land": [
+      "An area of Annual Crop Land as seen from above often shows distinct geometric shapes like squares and rectangles.",
+      "The texture of Annual Crop Land is typically uniform and smooth, corresponding to a single crop type.",
+      "A satellite image of Annual Crop Land displays fields that change color and texture dramatically with the seasons.",
+      "Annual Crop Land can be identified by patterns of plowed earth, newly planted crops, or stubble left after harvesting.",
+      "The appearance of Annual Crop Land is very regular, often arranged in a grid-like pattern of separate fields.",
+      "A key feature of Annual Crop Land is its seasonally bare soil, which distinguishes it from permanent vegetation.",
+      "Unlike forests, Annual Crop Land lacks a dense, irregular tree canopy and instead looks flat and organized.",
+      "Annual Crop Land consists of large, open fields cultivated for crops that are planted and harvested within a single year.",
+      "The color of Annual Crop Land is often a vibrant green during the growing season or brown when fallow.",
+      "An image of Annual Crop Land typically shows signs of heavy machinery use, like straight plow lines or harvester tracks."
+    ],
+    "Forest": [
+      "A Forest is characterized by a dense, continuous canopy of trees, appearing as a large, textured green area from above.",
+      "The texture of a Forest in satellite imagery is coarse and irregular due to the varying heights and shapes of individual tree crowns.",
+      "A Forest typically has a dark green color, which helps distinguish it from lighter green grasslands or croplands.",
+      "The boundaries of a Forest are often natural and irregular, following terrain contours rather than straight lines.",
+      "Unlike orchards, a Forest lacks any discernible planting pattern, showing a random and dense distribution of trees.",
+      "A satellite image of a Forest shows very little exposed ground due to the dense overhead foliage.",
+      "A key characteristic of a Forest is its large, unbroken expanse of woody vegetation.",
+      "From an aerial view, a Forest appears as a vast, dark, and unevenly textured carpet covering the land.",
+      "A Forest area contrasts sharply with nearby cleared land, roads, or bodies of water.",
+      "The visual signature of a Forest is its deep green, highly textured surface indicating tall, dense tree cover."
+    ],
+    "Herbaceous Vegetation Land": [
+      "An area of Herbaceous Vegetation Land is typically a non-wooded, open area covered in grasses, shrubs, or other low-lying plants.",
+      "The texture of Herbaceous Vegetation Land is smoother and more uniform than a forest, but less uniform than a mowed lawn.",
+      "Herbaceous Vegetation Land often appears as irregularly shaped patches of light to medium green in satellite images.",
+      "This type of landscape, Herbaceous Vegetation Land, includes natural grasslands, meadows, and scrublands.",
+      "Unlike crop land, Herbaceous Vegetation Land lacks distinct geometric field boundaries or signs of plowing.",
+      "A key feature of Herbaceous Vegetation Land is the absence of a significant tree canopy, making it look open and flat.",
+      "Herbaceous Vegetation Land can be seen as transitional areas between forests and more developed land.",
+      "An aerial view of Herbaceous Vegetation Land shows a continuous cover of low-growing plants without the structured rows of agriculture.",
+      "The color of Herbaceous Vegetation Land may be patchy, with variations indicating different types of grasses or soil moisture.",
+      "Herbaceous Vegetation Land is a general category for land covered with non-cultivated, non-woody plants."
+    ],
+    "Highway or Road": [
+      "A Highway or Road appears as a distinct, thin, linear feature with a smooth surface in satellite imagery.",
+      "The color of a Highway or Road is typically dark grey or black, contrasting sharply with surrounding natural vegetation or soil.",
+      "A Highway or Road is identifiable by its function of connecting different areas, such as residential and industrial zones.",
+      "From above, a Highway or Road network can be seen with its intersections, interchanges, and bridges.",
+      "Unlike a river, a Highway or Road often consists of straight lines and engineered curves rather than natural meanders.",
+      "A defining feature of a Highway or Road is its consistent width along its entire length.",
+      "In high-resolution images, a Highway or Road may show painted lane markings or central dividers.",
+      "A Highway or Road cuts through other land cover types, appearing as a stark, man-made line across the landscape.",
+      "The structure of a Highway or Road is designed for transportation, making it a key indicator of human development.",
+      "An image of a Highway or Road shows a paved, artificial line that stands out from the natural environment."
+    ],
+    "Industrial Buildings": [
+      "Industrial Buildings are typically very large, blocky structures, often with simple rectangular or square footprints.",
+      "An area with Industrial Buildings is characterized by large, flat rooftops that are often white, grey, or metallic to reflect heat.",
+      "Industrial Buildings are usually found in clusters or 'parks', often located near major highways or railways for transport.",
+      "Surrounding Industrial Buildings, there are often large paved areas for parking, loading docks, and outdoor storage.",
+      "The appearance of Industrial Buildings is highly functional, lacking the smaller, varied shapes of residential housing.",
+      "From an aerial view, Industrial Buildings stand out due to their massive scale compared to other structures.",
+      "Unlike commercial centers, a zone of Industrial Buildings has fewer windows and more features like smokestacks or large ventilation units.",
+      "Industrial Buildings are a key component of urban infrastructure, dedicated to manufacturing, warehousing, and production.",
+      "A satellite image of Industrial Buildings shows a landscape dominated by large, geometrically simple man-made structures.",
+      "The layout around Industrial Buildings is sparse, with significant open space for vehicle maneuvering and material handling."
+    ],
+    "Pasture Land": [
+      "Pasture Land is an area of open land covered with grass or other low plants suitable for grazing animals.",
+      "From above, Pasture Land appears as fields of relatively uniform green, similar to herbaceous vegetation but often managed.",
+      "A key feature of Pasture Land can be the faint lines of fences or hedges that divide it into separate enclosures.",
+      "Pasture Land has a smoother texture than a forest and often lacks the geometric precision of annual crop land.",
+      "Unlike wild grasslands, Pasture Land is agricultural land used for raising livestock.",
+      "An aerial image of Pasture Land may show signs of grazing, such as animal trails or variations in grass height.",
+      "Pasture Land is typically located in rural settings, often interspersed with forests and other farmland.",
+      "The appearance of Pasture Land is that of a managed, open, grassy field.",
+      "Compared to Permanent Crop Land like orchards, Pasture Land lacks any visible structure or planting in rows.",
+      "A satellite view of Pasture Land shows green, open spaces dedicated to animal husbandry."
+    ],
+    "Permanent Crop Land": [
+      "Permanent Crop Land is characterized by crops that are not replanted annually, such as orchards, vineyards, or plantations.",
+      "A key visual feature of Permanent Crop Land is its highly structured, repeating pattern of planting in neat rows or grids.",
+      "An aerial view of Permanent Crop Land, like an apple orchard, shows countless individual tree crowns arranged in straight lines.",
+      "The texture of Permanent Crop Land is more coarse than annual crops but far more regular than a natural forest.",
+      "Permanent Crop Land can be identified by the persistent woody structure of the plants, which is visible year-round.",
+      "Vineyards, a type of Permanent Crop Land, appear as a dense pattern of thin parallel lines on the landscape.",
+      "Unlike seasonal fields, Permanent Crop Land represents a long-term agricultural investment in woody crops.",
+      "The distinct, organized geometry of Permanent Crop Land makes it easily distinguishable from other vegetation types.",
+      "A satellite image of Permanent Crop Land often reveals the precise spacing and alignment of trees or vines.",
+      "Permanent Crop Land is a form of agriculture defined by its orderly rows of long-living plants."
+    ],
+    "Residential Buildings": [
+      "An area of Residential Buildings is a dense cluster of many small, individual structures used for housing.",
+      "The defining feature of Residential Buildings from above is the pattern of streets and cul-de-sacs that connect the houses.",
+      "An aerial view of Residential Buildings shows a varied landscape of rooftops, small yards, swimming pools, and interspersed trees.",
+      "Residential Buildings are characterized by their relatively small size and high density compared to industrial structures.",
+      "The roofs of Residential Buildings have diverse shapes, colors, and materials, creating a complex and irregular texture.",
+      "A satellite image of Residential Buildings reveals a man-made, grid-like or curvilinear pattern of settlement.",
+      "Unlike a city center, a zone of Residential Buildings has significant green space mixed in, such as private gardens and local parks.",
+      "Residential Buildings are the primary component of suburbs and neighborhoods where people live.",
+      "The visual signature of Residential Buildings is the dense aggregation of small-scale structures with associated road networks.",
+      "A landscape of Residential Buildings is a clear indicator of a populated, non-industrial urban or suburban area."
+    ],
+    "River": [
+      "A River is a natural, linear body of water that winds and meanders across the landscape.",
+      "In satellite images, a River is clearly visible as it contrasts with the surrounding land, appearing blue, green, or brown.",
+      "The width of a River can be highly variable, widening in some areas and narrowing in others.",
+      "Unlike a highway, a River follows the path of least resistance through the terrain, resulting in a sinuous, winding shape.",
+      "A key feature of a River is often the presence of darker, lusher vegetation growing along its banks.",
+      "A River is a dynamic natural feature, and sandbars or islands may be visible within its channel.",
+      "From an aerial perspective, a River is the central feature of a drainage basin, with smaller tributaries often seen joining it.",
+      "The color of a River can indicate its condition, with brown suggesting high sediment load and dark blue suggesting clear, deep water.",
+      "A River acts as a natural boundary or corridor, influencing the patterns of forests, agriculture, and human settlement.",
+      "An image of a River shows a flowing, natural waterway that carves its path through the land."
+    ],
+    "Sea or Lake": [
+      "A Sea or Lake is a large, open, and continuous expanse of water.",
+      "The most prominent feature of a Sea or Lake in a satellite image is its distinct coastline where it meets the land.",
+      "The surface of a Sea or Lake typically has a uniform color and a smooth, homogeneous texture from a distance.",
+      "Unlike a river, a Sea or Lake is a non-linear body of water that fills a large basin or depression in the land.",
+      "An aerial view of a Sea or Lake shows a vast, largely featureless surface, although boats, waves, or ice may be visible.",
+      "The color of a Sea or Lake is most often blue but can appear green, grey, or even black depending on depth, algae, and light.",
+      "A Sea or Lake is a significant geographical feature that dominates its region and influences the local climate.",
+      "A satellite image of a Sea or Lake presents a sharp, clear contrast between the water and adjacent landmasses.",
+      "A Sea or Lake is a large, static body of water, as opposed to the flowing, linear nature of a river.",
+      "The visual appearance of a Sea or Lake is that of a massive, flat, and uniform body of water."
+    ]
+  }

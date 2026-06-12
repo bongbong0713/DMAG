@@ -1,0 +1,54 @@
+📄 Logging to: output/aircraft/handcrafted/log_20260122_170331.txt
+Use GPU: 6 for training
+Initializing the contect with given words: [a_type_of_aircraft]
+Initial context: "a type of aircraft"
+Number of context words (tokens): 4
+=> Model created: visual backbone ViT-B/16
+=> Using native Torch AMP. Training in mixed precision.
+evaluating: Aircraft
+number of test samples: 3333
+Test: [  99/3333]	Time  0.236 ( 0.252)	Acc@1   0.00 ( 22.00)	Acc@5   0.00 ( 55.00)
+Test: [ 199/3333]	Time  0.242 ( 0.246)	Acc@1 100.00 ( 24.00)	Acc@5 100.00 ( 60.00)
+Test: [ 299/3333]	Time  0.236 ( 0.243)	Acc@1   0.00 ( 28.33)	Acc@5 100.00 ( 60.00)
+Test: [ 399/3333]	Time  0.238 ( 0.243)	Acc@1   0.00 ( 27.75)	Acc@5   0.00 ( 61.25)
+Test: [ 499/3333]	Time  0.236 ( 0.243)	Acc@1   0.00 ( 27.40)	Acc@5   0.00 ( 60.80)
+Test: [ 599/3333]	Time  0.260 ( 0.245)	Acc@1   0.00 ( 27.33)	Acc@5 100.00 ( 60.17)
+Test: [ 699/3333]	Time  0.266 ( 0.246)	Acc@1   0.00 ( 28.71)	Acc@5 100.00 ( 60.71)
+Test: [ 799/3333]	Time  0.233 ( 0.247)	Acc@1   0.00 ( 28.00)	Acc@5   0.00 ( 59.75)
+Test: [ 899/3333]	Time  0.301 ( 0.252)	Acc@1   0.00 ( 28.00)	Acc@5   0.00 ( 59.11)
+Test: [ 999/3333]	Time  0.232 ( 0.251)	Acc@1 100.00 ( 27.80)	Acc@5 100.00 ( 58.40)
+Test: [1099/3333]	Time  0.245 ( 0.251)	Acc@1   0.00 ( 27.45)	Acc@5   0.00 ( 58.09)
+Test: [1199/3333]	Time  0.336 ( 0.250)	Acc@1 100.00 ( 28.00)	Acc@5 100.00 ( 59.50)
+Test: [1299/3333]	Time  0.240 ( 0.251)	Acc@1   0.00 ( 27.85)	Acc@5   0.00 ( 59.85)
+Test: [1399/3333]	Time  0.256 ( 0.252)	Acc@1   0.00 ( 27.29)	Acc@5 100.00 ( 59.57)
+Test: [1499/3333]	Time  0.245 ( 0.252)	Acc@1   0.00 ( 27.00)	Acc@5 100.00 ( 59.80)
+Test: [1599/3333]	Time  0.259 ( 0.253)	Acc@1   0.00 ( 27.69)	Acc@5   0.00 ( 59.81)
+Test: [1699/3333]	Time  0.337 ( 0.253)	Acc@1 100.00 ( 27.76)	Acc@5 100.00 ( 59.65)
+Test: [1799/3333]	Time  0.238 ( 0.253)	Acc@1   0.00 ( 27.67)	Acc@5 100.00 ( 60.06)
+Test: [1899/3333]	Time  0.251 ( 0.253)	Acc@1   0.00 ( 28.11)	Acc@5   0.00 ( 60.05)
+Test: [1999/3333]	Time  0.238 ( 0.253)	Acc@1 100.00 ( 28.05)	Acc@5 100.00 ( 60.35)
+Test: [2099/3333]	Time  0.274 ( 0.255)	Acc@1   0.00 ( 27.90)	Acc@5 100.00 ( 60.14)
+Test: [2199/3333]	Time  0.303 ( 0.255)	Acc@1   0.00 ( 27.59)	Acc@5 100.00 ( 59.86)
+Test: [2299/3333]	Time  0.346 ( 0.255)	Acc@1   0.00 ( 27.48)	Acc@5   0.00 ( 59.91)
+Test: [2399/3333]	Time  0.244 ( 0.255)	Acc@1   0.00 ( 27.62)	Acc@5   0.00 ( 60.04)
+Test: [2499/3333]	Time  0.257 ( 0.256)	Acc@1 100.00 ( 27.84)	Acc@5 100.00 ( 60.20)
+Test: [2599/3333]	Time  0.263 ( 0.257)	Acc@1   0.00 ( 27.81)	Acc@5   0.00 ( 60.08)
+Test: [2699/3333]	Time  0.248 ( 0.257)	Acc@1   0.00 ( 27.78)	Acc@5   0.00 ( 59.89)
+Test: [2799/3333]	Time  0.255 ( 0.257)	Acc@1   0.00 ( 27.96)	Acc@5 100.00 ( 60.32)
+Test: [2899/3333]	Time  0.261 ( 0.257)	Acc@1   0.00 ( 27.72)	Acc@5   0.00 ( 60.41)
+Test: [2999/3333]	Time  0.244 ( 0.256)	Acc@1   0.00 ( 27.73)	Acc@5 100.00 ( 60.37)
+Test: [3099/3333]	Time  0.258 ( 0.256)	Acc@1   0.00 ( 27.58)	Acc@5 100.00 ( 60.39)
+Test: [3199/3333]	Time  0.234 ( 0.256)	Acc@1   0.00 ( 27.53)	Acc@5   0.00 ( 60.38)
+Test: [3299/3333]	Time  0.237 ( 0.255)	Acc@1 100.00 ( 27.45)	Acc@5 100.00 ( 60.76)
+ *  Acc@1 27.363 Acc@5 60.756
+
+✅ Total validation time: 850.97 seconds
+=> Acc. on testset [Aircraft]: @1 27.362735748291016/ @5 60.756072998046875
+======== Result Summary ========
+params: nstep	lr	bs
+params: 1	0.003	64
+		 [set_id] 		 Top-1 acc. 		 Top-5 acc.
+Aircraft	
+
+27.36	
+

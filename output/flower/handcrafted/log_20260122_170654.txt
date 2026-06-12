@@ -1,0 +1,45 @@
+📄 Logging to: output/flower/handcrafted/log_20260122_170654.txt
+Use GPU: 7 for training
+Initializing the contect with given words: [a_type_of_flower]
+Initial context: "a type of flower"
+Number of context words (tokens): 4
+=> Model created: visual backbone ViT-B/16
+=> Using native Torch AMP. Training in mixed precision.
+evaluating: Flower102
+number of test samples: 2463
+Test: [  99/2463]	Time  0.401 ( 0.437)	Acc@1   0.00 ( 73.00)	Acc@5 100.00 ( 86.00)
+Test: [ 199/2463]	Time  0.414 ( 0.425)	Acc@1   0.00 ( 71.00)	Acc@5 100.00 ( 86.00)
+Test: [ 299/2463]	Time  0.419 ( 0.423)	Acc@1   0.00 ( 71.67)	Acc@5 100.00 ( 86.33)
+Test: [ 399/2463]	Time  0.415 ( 0.422)	Acc@1 100.00 ( 71.50)	Acc@5 100.00 ( 85.50)
+Test: [ 499/2463]	Time  0.432 ( 0.421)	Acc@1 100.00 ( 72.60)	Acc@5 100.00 ( 86.20)
+Test: [ 599/2463]	Time  0.404 ( 0.421)	Acc@1   0.00 ( 72.67)	Acc@5   0.00 ( 86.33)
+Test: [ 699/2463]	Time  0.405 ( 0.421)	Acc@1 100.00 ( 72.43)	Acc@5 100.00 ( 86.43)
+Test: [ 799/2463]	Time  0.431 ( 0.422)	Acc@1 100.00 ( 72.12)	Acc@5 100.00 ( 86.12)
+Test: [ 899/2463]	Time  0.435 ( 0.421)	Acc@1   0.00 ( 71.78)	Acc@5 100.00 ( 86.00)
+Test: [ 999/2463]	Time  0.438 ( 0.421)	Acc@1 100.00 ( 72.40)	Acc@5 100.00 ( 86.20)
+Test: [1099/2463]	Time  0.418 ( 0.421)	Acc@1 100.00 ( 72.73)	Acc@5 100.00 ( 85.91)
+Test: [1199/2463]	Time  0.406 ( 0.421)	Acc@1   0.00 ( 72.58)	Acc@5 100.00 ( 85.92)
+Test: [1299/2463]	Time  0.242 ( 0.409)	Acc@1 100.00 ( 73.31)	Acc@5 100.00 ( 86.46)
+Test: [1399/2463]	Time  0.241 ( 0.398)	Acc@1 100.00 ( 73.43)	Acc@5 100.00 ( 86.43)
+Test: [1499/2463]	Time  0.244 ( 0.388)	Acc@1 100.00 ( 73.60)	Acc@5 100.00 ( 86.60)
+Test: [1599/2463]	Time  0.268 ( 0.379)	Acc@1   0.00 ( 73.31)	Acc@5   0.00 ( 86.19)
+Test: [1699/2463]	Time  0.258 ( 0.371)	Acc@1 100.00 ( 73.88)	Acc@5 100.00 ( 86.53)
+Test: [1799/2463]	Time  0.247 ( 0.364)	Acc@1 100.00 ( 74.11)	Acc@5 100.00 ( 86.61)
+Test: [1899/2463]	Time  0.240 ( 0.358)	Acc@1   0.00 ( 73.95)	Acc@5 100.00 ( 86.32)
+Test: [1999/2463]	Time  0.247 ( 0.352)	Acc@1 100.00 ( 73.95)	Acc@5 100.00 ( 86.20)
+Test: [2099/2463]	Time  0.253 ( 0.347)	Acc@1 100.00 ( 74.14)	Acc@5 100.00 ( 86.24)
+Test: [2199/2463]	Time  0.250 ( 0.343)	Acc@1 100.00 ( 73.91)	Acc@5 100.00 ( 86.18)
+Test: [2299/2463]	Time  0.249 ( 0.339)	Acc@1 100.00 ( 73.57)	Acc@5 100.00 ( 85.87)
+Test: [2399/2463]	Time  0.272 ( 0.335)	Acc@1 100.00 ( 73.38)	Acc@5 100.00 ( 85.75)
+ *  Acc@1 73.244 Acc@5 85.587
+
+✅ Total validation time: 819.84 seconds
+=> Acc. on testset [Flower102]: @1 73.24401092529297/ @5 85.58668518066406
+======== Result Summary ========
+params: nstep	lr	bs
+params: 1	0.003	64
+		 [set_id] 		 Top-1 acc. 		 Top-5 acc.
+Flower102	
+
+73.24	
+

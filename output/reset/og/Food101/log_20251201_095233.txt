@@ -1,0 +1,54 @@
+📄 Logging to: output/reset/og/Food101/log_20251201_095233.txt
+Use GPU: 6 for training
+Random initialization: initializing a generic context
+Initial context: "X X X X"
+Number of context words (tokens): 4
+Use pre-trained soft prompt (CoOp) as initialization
+=> Model created: visual backbone ViT-B/16
+=> Using native Torch AMP. Training in mixed precision.
+evaluating: Food101
+number of test samples: 30300
+Traceback (most recent call last):
+  File "./tpt_classification.py", line 925, in <module>
+    main()
+  File "./tpt_classification.py", line 652, in main
+    main_worker(args.gpu, args)
+  File "./tpt_classification.py", line 795, in main_worker
+    results[set_id] = test_time_adapt_eval(val_loader, model, model_state, optimizer, optim_state, scaler, args, classnames)Exception in thread Thread-1:
+Traceback (most recent call last):
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/threading.py", line 926, in _bootstrap_inner
+    self.run()
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/utils/data/_utils/pin_memory.py", line 25, in _pin_memory_loop
+    r = in_queue.get(timeout=MP_STATUS_CHECK_INTERVAL)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/multiprocessing/queues.py", line 113, in get
+    return _ForkingPickler.loads(res)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/multiprocessing/reductions.py", line 282, in rebuild_storage_fd
+    fd = df.detach()
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/multiprocessing/resource_sharer.py", line 57, in detach
+    with _resource_sharer.get_connection(self._id) as conn:
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/multiprocessing/resource_sharer.py", line 87, in get_connection
+    c = Client(address, authkey=process.current_process().authkey)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/multiprocessing/connection.py", line 492, in Client
+    c = SocketClient(address)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/multiprocessing/connection.py", line 620, in SocketClient
+    s.connect(address)
+FileNotFoundError: [Errno 2] No such file or directory
+
+
+  File "./tpt_classification.py", line 832, in test_time_adapt_eval
+    for i, (images, target) in enumerate(val_loader):
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 435, in __next__
+    data = self._next_data()
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 1068, in _next_data
+    idx, data = self._get_data()
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 1024, in _get_data
+    success, data = self._try_get_data()
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/site-packages/torch/utils/data/dataloader.py", line 872, in _try_get_data
+    data = self._data_queue.get(timeout=timeout)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/queue.py", line 179, in get
+    self.not_empty.wait(remaining)
+  File "/home/jeongwon/.conda/envs/tpt/lib/python3.7/threading.py", line 300, in wait
+    gotit = waiter.acquire(True, timeout)
+KeyboardInterrupt
