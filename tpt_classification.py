@@ -47,172 +47,6 @@ def _to_numpy(x):
         x = x.detach()
     return x.float().cpu().numpy()
 
-class TSNECollector:
-    def __init__(self, max_points=2000):
-        self.max_points = max_points
-        self.img_embeds = []
-        self.img_logits = []
-        self.count = 0
-
-    @torch.no_grad()
-    def add(self, emb: torch.Tensor, logits: torch.Tensor):
-        """
-        emb:   [B,D] or [D]
-        logits:[B,C] or [C]
-        """
-        if emb.dim() == 1:
-            emb = emb.unsqueeze(0)
-        if logits.dim() == 1:
-            logits = logits.unsqueeze(0)
-
-        remain = self.max_points - self.count
-        if remain <= 0:
-            return
-
-        take = min(remain, emb.size(0))
-        self.img_embeds.append(emb[:take].detach().cpu())
-        self.img_logits.append(logits[:take].detach().cpu())
-        self.count += take
-
-    def dump(self):
-        if self.count == 0:
-            return None, None
-        return torch.cat(self.img_embeds, dim=0), torch.cat(self.img_logits, dim=0)
-
-def visualize_tsne_embeddings(
-    image_embedding,        # [N, D]
-    output_logits,          # [N, C]
-    proto_bank_matrix,      # [C, D]
-    classnames=None,
-    outdir="./tsne_vis",
-    topk_classes=10,        # ✅ 8~12 추천
-    per_class_pool=150,     # 각 클래스에서 kNN 찾기 위한 후보 풀(너무 크면 느림)
-    knn_show=30,            # ✅ 각 클래스에서 proto 주변 점 몇 개만 보여줄지
-    random_state=42,
-    annotate_proto=True,
-):
-    import os, numpy as np
-    import torch
-    import torch.nn.functional as F
-    import matplotlib.pyplot as plt
-    from sklearn.manifold import TSNE
-
-    os.makedirs(outdir, exist_ok=True)
-
-    with torch.no_grad():
-        pred = output_logits.argmax(dim=1)  # [N]
-
-    device = image_embedding.device
-
-    # --- 1) 자주 등장하는 클래스 top-K 선택 ---
-    uniq, cnt = torch.unique(pred.cpu(), return_counts=True)
-    topk = cnt.argsort(descending=True)[:topk_classes]
-    keep_classes = sorted(uniq[topk].tolist())
-    K = len(keep_classes)
-
-    class_id_map = {old_c: new_i for new_i, old_c in enumerate(keep_classes)}
-
-    # --- 2) 클래스별로 후보(pool)만 뽑고, 그 중 proto와 가까운 knn_show만 선택 ---
-    kept_embeds = []
-    kept_labels = []
-
-    img_n_all = F.normalize(image_embedding.float(), dim=1)
-    pb = proto_bank_matrix[keep_classes]  # [K,D]
-    pb_n = F.normalize(pb.float(), dim=1)
-
-    for old_c in keep_classes:
-        idx_c = torch.nonzero(pred == old_c).squeeze(1)
-        if idx_c.numel() == 0:
-            continue
-
-        # 후보 풀을 먼저 줄임 (per_class_pool)
-        take_pool = min(per_class_pool, idx_c.numel())
-        pool_idx = idx_c[torch.randperm(idx_c.numel(), device=device)[:take_pool]]
-
-        # proto와 cosine sim 계산해서 top-k만 남김
-        c_new = class_id_map[old_c]
-        sim = (img_n_all[pool_idx] @ pb_n[c_new].unsqueeze(1)).squeeze(1)  # [pool]
-        k = min(knn_show, sim.numel())
-        top_local = sim.topk(k).indices
-        sel_idx = pool_idx[top_local]
-
-        kept_embeds.append(image_embedding[sel_idx])
-        kept_labels.append(torch.full((k,), c_new, device=device, dtype=torch.long))
-
-    if len(kept_embeds) == 0:
-        print("[t-SNE] No samples to visualize.")
-        return
-
-    img_emb = torch.cat(kept_embeds, dim=0)  # [M,D]  (M ~ K*knn_show)
-    lab     = torch.cat(kept_labels, dim=0)  # [M]
-
-    # --- 3) t-SNE 입력: (선택된 점들) + (proto들) ---
-    def _to_numpy(x):
-        if hasattr(x, "detach"):
-            x = x.detach()
-        return x.float().cpu().numpy()
-
-    X_img = _to_numpy(img_emb)       # [M,D]
-    X_pb  = _to_numpy(pb)            # [K,D]
-    X_all = np.concatenate([X_img, X_pb], axis=0)
-
-    M = X_img.shape[0]
-    perplexity = min(30, max(5, M // 3))  # 점 수 적으니 perplexity도 낮추기
-    tsne = TSNE(
-        n_components=2,
-        perplexity=perplexity,
-        learning_rate="auto",
-        init="pca",
-        random_state=random_state,
-        n_iter=1000,
-        verbose=1,
-    )
-    X2 = tsne.fit_transform(X_all)
-    pts_img = X2[:M]
-    pts_pb  = X2[M:]
-
-    lab_np = lab.detach().cpu().numpy()
-
-    # --- 4) plot: 점을 크고 진하게 + 테두리 ---
-    plt.figure(figsize=(10, 9), dpi=180)
-
-    cmap = plt.get_cmap("tab10" if K <= 10 else "tab20")
-    colors = [cmap(i % cmap.N) for i in range(K)]
-
-    # 이미지 점 (크게, 진하게, 검정 테두리)
-    for c in range(K):
-        m = (lab_np == c)
-        if m.sum() == 0:
-            continue
-        plt.scatter(
-            pts_img[m, 0], pts_img[m, 1],
-            s=90, alpha=0.95, color=colors[c],
-            edgecolors='k', linewidths=0.6,
-        )
-
-    # 프로토타입 (더 크게)
-    for c in range(K):
-        plt.scatter(
-            pts_pb[c, 0], pts_pb[c, 1],
-            s=520, marker='X',
-            color=colors[c],
-            edgecolors='k', linewidths=2.2,
-            zorder=10
-        )
-        if annotate_proto:
-            name = classnames[keep_classes[c]] if classnames is not None else f"cls{keep_classes[c]}"
-            plt.text(
-                pts_pb[c, 0], pts_pb[c, 1],
-                f" {c}:{name}",
-                fontsize=9, weight="bold", zorder=11
-            )
-
-    plt.title(f"t-SNE: proto + its nearest {knn_show} images per class (bold points)", fontsize=12)
-    plt.tight_layout()
-    out_path = os.path.join(outdir, "tsne_proto_neighbors_bold.png")
-    plt.savefig(out_path)
-    plt.close()
-    print(f"[t-SNE] Saved: {out_path}")
 
 
 def save_aug_images_and_info(images, entropies, probs, classnames, targets=None,
@@ -220,17 +54,14 @@ def save_aug_images_and_info(images, entropies, probs, classnames, targets=None,
                              selected_idx=None, original_selected_idx=None, top_aug_indices=None):
     os.makedirs(save_dir, exist_ok=True)
 
-    # 1. 전체 이미지 저장
     grid = vutils.make_grid(images.cpu(), nrow=4, normalize=True, scale_each=True)
     image_save_path = os.path.join(save_dir, f"{prefix}_step{step}.png")
     vutils.save_image(grid, image_save_path)
 
-    # ✅ ensure targets match view count
     if targets is not None:
         if len(targets) == 1 and probs.shape[0] > 1:
             targets = targets.repeat(probs.shape[0])
 
-    # 2. 텍스트 정보 저장
     txt_save_path = os.path.join(save_dir, f"{prefix}_step{step}.txt")
     sorted_txt_save_path = os.path.join(save_dir, f"{prefix}_step{step}_sorted.txt")
 
@@ -256,7 +87,6 @@ def save_aug_images_and_info(images, entropies, probs, classnames, targets=None,
     write_info_file(txt_save_path, info_list)
     write_info_file(sorted_txt_save_path, sorted(info_list, key=lambda x: x[2], reverse=True))
 
-    # 3. 선택된 인덱스 정보 저장 및 선택된 이미지 저장
     def save_selected_images(idx_tensor, name):
         if idx_tensor is not None and len(idx_tensor) > 0:
             selected_imgs = images[idx_tensor.cpu()]
@@ -445,37 +275,36 @@ def build_alignment_weighted_anchors(
 def joint_confidence_diversity(
     cos: torch.Tensor,          # [N]
     ent: torch.Tensor,          # [N]
-    embeds: torch.Tensor,       # [N,D] (raw, L2 norm 안돼도 됨; 아래서 정규화)
+    embeds: torch.Tensor,       # [N,D] 
     num_classes: int,
     selected_embeds: torch.Tensor = None,  # [M,D] or None
     w_cos: float = 1.0,
     w_ent: float = 0.2,
-    gamma: float = 0.0,         # γ=0이면 원본과 동일 스코어
+    gamma: float = 0.0,        
     red_mode: str = "selected_max",  # or "knn_mean"
     knn_k: int = 5,
     eps: float = 1e-6,
 ) -> torch.Tensor:
-    # 원본과 동일한 정의
-    ent_norm = 1.0 - ent / math.log(num_classes)      # [0,1], 클수록 좋음
-    score = w_cos * cos + w_ent * ent_norm            # γ=0이면 원본과 동일
+    ent_norm = 1.0 - ent / math.log(num_classes)      
+    score = w_cos * cos + w_ent * ent_norm            
 
     if gamma > 0:
         E = F.normalize(embeds, dim=1)
         if selected_embeds is not None and selected_embeds.numel() > 0 and red_mode == "selected_max":
             S = F.normalize(selected_embeds, dim=1)
-            red = (E @ S.T).max(dim=1).values                      # [N], 클수록 중복↑
+            red = (E @ S.T).max(dim=1).values                      
         else:
             sim = E @ E.T                                         # [N,N]
             k = min(knn_k, sim.size(1)-1)
-            red = sim.topk(k+1, dim=1).values[:, 1:].mean(dim=1)  # 자기 자신 제외 kNN 평균
+            red = sim.topk(k+1, dim=1).values[:, 1:].mean(dim=1)  
         
-        red = red.float()                                  # <-- 핵심: quantile 전에 float32 보장
+        red = red.float()                                 
         if red.numel() < 2:
-            red_n = torch.zeros_like(red)                  # 샘플 1개면 패널티 0
+            red_n = torch.zeros_like(red)                 
         else:
             ql, qh = torch.quantile(red, 0.05), torch.quantile(red, 0.95)
             denom = (qh - ql).clamp_min(eps)
-            red_n = ((red.clamp(ql, qh) - ql) / denom)               # [0,1], 클수록 중복↑
+            red_n = ((red.clamp(ql, qh) - ql) / denom)              
 
         score = score - gamma * red_n
 
@@ -508,13 +337,10 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
                 _ , original_selected_idx = select_confident_samples(output, args.selection_p)
                 _, selected_idx = select_confident_samples(proto_output, args.selection_p)
                 # _, cosine_selected_idx, _ = select_confident_samples_cosine(output, 0.8, 0.3)
-                # 1. 전체 예측 결과
                 # pred = output.argmax(dim=1)  # [B]
 
-                # 2. 정답과 일치하는 인덱스만 선택
-                # correct_mask = pred.eq(target)  # [B] - True인 곳만 정답 맞춤
-                # correct_idx = correct_mask.nonzero(as_tuple=False).squeeze(1)  # 정답 맞춘 인덱스만 추출
-                # 3. 해당 인덱스로 output과 proto_output 선택
+                # correct_mask = pred.eq(target)  
+                # correct_idx = correct_mask.nonzero(as_tuple=False).squeeze(1)  
                 # output = output[correct_idx]
                 original_output = output
                 original_proto_output = proto_output
@@ -572,7 +398,6 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
                 )
                 thresh      = torch.quantile(score_div, 0.95).item()
                 keep_idx    = torch.nonzero(score_div > thresh).squeeze(1)
-                # 여기서 selected_idx 변경
                 merged_idx  = torch.unique(torch.cat([selected_idx,
                                                        keep_idx.to(selected_idx.device)]))
                 output      = original_output[merged_idx]
@@ -597,19 +422,15 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
             pb_logits = (logit_scale if torch.is_tensor(logit_scale) else 1.0) * (
                 norm_emb @ norm_pb.T)  # [N,C]
 
-            # confidence기반 weighted sum
             with torch.no_grad():
-                # 소프트맥스를 통해 confidence 계산
                 probs_output = F.softmax(output, dim=1)           # [B, C]
                 # probs_proto = F.softmax(proto_output, dim=1)       # [B, C]
                 probs_proto = F.softmax(new_proto_output, dim=1)
                 probs_pb    = F.softmax(pb_logits, dim=1)
 
-                # 각 sample에 대해 가장 높은 confidence 값 추출
                 conf_output = probs_output.max(dim=1).values       # [B]
                 conf_proto = probs_proto.max(dim=1).values         # [B]
                 conf_pb    = probs_pb.max(dim=1).values
-                # normalize (합이 1이 되도록)
                 total = conf_output + conf_proto + conf_pb + 1e-6
                 w_out, w_proto, w_pb = (conf_output/total).unsqueeze(1), (conf_proto/total).unsqueeze(1), (conf_pb/total).unsqueeze(1)
                 # simple average
@@ -620,7 +441,7 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
                 # ens_logits = output
                 avg_prob   = F.softmax(ens_logits, dim=1).mean(dim=0)
                 # avg_prob = F.softmax(ens_logits.mean(dim=0), dim=0)
-                T = 0.5 # temperature 이거도 조정하면서 해봐야할듯
+                T = 0.5 
                 sharpened = avg_prob ** (1.0 / T)
                 avg_prob = sharpened / sharpened.sum()  # normalize to 1
 
@@ -631,7 +452,7 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
 
             # ens_logits = w_out.detach() * output + w_proto.detach() * proto_output + w_pb.detach() * pb_logits  # [B, C]
             # ens_logits = output + proto_output + pb_logits
-            # logits = output.mean(dim=0)  # 하나의 view에서 예측 사용 (또는 avg_logits도 가능)
+            # logits = output.mean(dim=0)  
             logits = original_output[0]
             loss = F.kl_div(F.log_softmax(logits, dim=-1), avg_prob, reduction='batchmean') 
             # loss = t_similarity_loss
@@ -654,7 +475,7 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
         # original_entropies = -(original_probs * original_log_probs).sum(dim=-1)  # [N]
 
         # if j == 0 and args.tpt and global_tuning_step < 1000:
-        #     # 이미지가 list 형태일 때 (TPT)
+        #     
         #     if isinstance(inputs, tuple):
         #         images = torch.stack(inputs[0])
         #     elif isinstance(inputs, list):
@@ -680,20 +501,14 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
     
     with torch.no_grad():
         if target is not None and selected_idx is not None and selected_idx.numel() > 0:
-            # "전체 aug 중 selected_idx"는 원래 전체 view 인덱스 기준이어야 함
-            # 현재 코드에서는 output이 계속 original_output[selected_idx]로 덮일 수 있으니,
-            # 'original_output'을 유지한 상태에서 pred를 뽑는 게 안전함.
-            # (원본 logits 텐서가 없다면, 최소한 selected된 output으로라도 계산)
             try:
                 pred_sel = original_output.argmax(dim=1)[selected_idx]  # [M]
             except NameError:
-                pred_sel = output.argmax(dim=1)  # fallback (이미 selected된 output이면 [M])
+                pred_sel = output.argmax(dim=1)  # fallback (
 
-            # target을 M에 맞게 확장
             if target.numel() == 1:
                 tgt_sel = target.expand(pred_sel.size(0))
             else:
-                # target이 view별로 있을 경우 selected_idx로 서브셋
                 try:
                     tgt_sel = target.view(-1)[selected_idx]
                 except:
@@ -702,7 +517,6 @@ def test_time_tuning(model, inputs, optimizer, scaler, args, target=None, classn
             sel_correct = (pred_sel == tgt_sel).sum().item()
             sel_total = pred_sel.numel()
 
-    # cocoop / coop 공통으로 stats 반환
     if args.cocoop:
         return pgen_ctx, sel_correct, sel_total
     return sel_correct, sel_total
@@ -980,7 +794,6 @@ def test_time_adapt_eval(val_loader, model, model_state, optimizer, optim_state,
             all_logits.append(output[:take].detach().cpu())
             collected += take
 
-            # ✅ 현재 proto_bank snapshot (마지막걸로 갱신)
             C = output.size(1)
             D = img_emb.size(1)
             pb_mat_last = proto_bank.to_matrix(C, D, device=output.device).detach().cpu()
@@ -1006,7 +819,6 @@ def test_time_adapt_eval(val_loader, model, model_state, optimizer, optim_state,
         img_emb_all = torch.cat(all_img_embeds, dim=0)
         logits_all  = torch.cat(all_logits, dim=0)
 
-        # new_prototype_bank가 따로 없으면 일단 동일한 pb로 넣어도 됨
         visualize_tsne_embeddings(
             image_embedding=img_emb_all.cuda(args.gpu, non_blocking=True),
             output_logits=logits_all.cuda(args.gpu, non_blocking=True),
@@ -1024,8 +836,8 @@ def test_time_adapt_eval(val_loader, model, model_state, optimizer, optim_state,
               f"({total_sel_correct}/{total_sel_count})")
     else:
         print("\n✅ Selected-aug accuracy (overall): N/A (no selected views)")
-    total_elapsed_time = time.time() - total_start_time  # ✅ 전체 실행 시간 계산
-    print(f"\n✅ Total validation time: {total_elapsed_time:.2f} seconds")  # ✅ 실행 시간 출력
+    total_elapsed_time = time.time() - total_start_time  
+    print(f"\n✅ Total validation time: {total_elapsed_time:.2f} seconds") 
 
     return [top1.avg, top5.avg]
 
